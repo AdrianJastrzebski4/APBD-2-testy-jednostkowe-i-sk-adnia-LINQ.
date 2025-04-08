@@ -36,7 +36,11 @@ public class EmpDeptSalgradeTests
         var emps = Database.GetEmps();
         var depts = Database.GetDepts();
 
-        List<Emp> result = null; 
+        var chicagoDeptNos = depts
+            .Where(d => d.Loc == "CHICAGO")
+            .Select(d => d.DeptNo);
+        
+        List<Emp> result = emps.Where(e => chicagoDeptNos.Contains(e.DeptNo)).ToList();; 
 
         Assert.All(result, e => Assert.Equal(30, e.DeptNo));
     }
@@ -48,13 +52,13 @@ public class EmpDeptSalgradeTests
     {
         var emps = Database.GetEmps();
 
-        //var result = null; 
+        var result = emps.Select(e => new { e.EName, e.Sal }).ToList();
         
-        // Assert.All(result, r =>
-        // {
-        //     Assert.False(string.IsNullOrWhiteSpace(r.EName));
-        //     Assert.True(r.Sal > 0);
-        // });
+        Assert.All(result, r =>
+        {
+             Assert.False(string.IsNullOrWhiteSpace(r.EName));
+             Assert.True(r.Sal > 0);
+         });
     }
 
     // 5. JOIN Emp to Dept
