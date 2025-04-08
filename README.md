@@ -1,0 +1,1 @@
+# APBD-2-testy-jednostkowe-i-sk-adnia-LINQ.
